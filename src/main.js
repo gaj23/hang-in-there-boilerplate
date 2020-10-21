@@ -120,6 +120,7 @@ var userImage = document.querySelector('#poster-image-url');
 var userTitle = document.querySelector('#poster-title');
 var userQuote = document.querySelector('#poster-quote');
 var userButton = document.querySelector('.make-poster');
+var posterGrid = document.querySelector('.saved-posters-grid');
 
 // main poster event listeners
 window.addEventListener('load', createRandomPoster);
@@ -162,6 +163,15 @@ function showPosterForm() {
 function showSavedPosters() {
   mainPoster.classList.add('hidden');
   savedPostersSection.classList.remove('hidden');
+  for (var i = 0; i < savedPosters.length; i++){
+    posterGrid.innerHTML += 
+      `<section class='mini-poster'>
+        <img src=${savedPosters[i].imageURL} alt=${savedPosters[i].title}>
+        <h2>${savedPosters[i].title}</h2>
+        <h4>${savedPosters[i].quote}</h4>
+      </section>
+    `;
+  }
 };
 
 //poster form functions
