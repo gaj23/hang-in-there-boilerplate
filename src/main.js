@@ -1,6 +1,3 @@
-// query selector variables go here 👇
-
-// we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -99,10 +96,7 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster = {
-
-};
-//call currentPoster.img is placeholder for image (cont for title & quote)
+var currentPoster = {};
 
 // main poster query selectors
 var mainPoster = document.querySelector('.main-poster');
@@ -127,26 +121,21 @@ var userTitle = document.querySelector('#poster-title');
 var userQuote = document.querySelector('#poster-quote');
 var userButton = document.querySelector('.make-poster');
 
-//above will allow us to modify the DOM element section with the class poster-Form
-
-
-// event listeners go here 👇
 // main poster event listeners
 window.addEventListener('load', createRandomPoster);
 randomButton.addEventListener('click', createRandomPoster);
 savePosterButton.addEventListener('click', savePoster);
 showSavedButton.addEventListener('click', showSavedPosters);
 makePosterButton.addEventListener('click', showPosterForm);
+
 // poster form event listeners
 showMain.addEventListener('click', showMainPoster);
 backToMain.addEventListener('click', showMainPoster);
-// pass in the correct function/parameters
+
 // user input event listeners
 userButton.addEventListener('click', userCreatedPoster);
 
 
-// functions and event handlers go here 👇
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -174,7 +163,6 @@ function showSavedPosters() {
   mainPoster.classList.add('hidden');
   savedPostersSection.classList.remove('hidden');
 };
-//above function is adding class to DOM element, allowing CSS to manipulate
 
 //poster form functions
 function showMainPoster() {
@@ -199,25 +187,20 @@ function userCreatedPoster() {
 }
 
 function savePoster() {
-  function passed(poster){
-    (poster.id === id)
-  }
-  if(savedPosters.some(passed)){
-    savedPosters.push(currentPoster);
-  }else{
-    return
-  }
-  console.log(savedPosters);
+  checkPosters(currentPoster);
 }
 
-//!Remember: double-check nested elements!
+function checkPosters(poster) {
 
-// function removeMenuItem(eateryName, name, meal){
-//   var passedItem = (food) => (food.name === name);
-//   if (eateryName.menus[meal].some(passedItem)){
-//   eateryName.menus[meal].splice(name, 1);
-//   return `No one is eating our ${name} - it has been removed from the ${meal} menu!`;
-//   }else{
-//    return `Sorry, we don't sell ${name}, try adding a new recipe!`
-//   };
-// };
+  if (!savedPosters.length) {
+    savedPosters.push(poster);
+  } else {
+    for (var i = 0; i < savedPosters.length; i++) {
+      if (savedPosters[i].imageURL === poster.imageURL && savedPosters[i].title === poster.title && savedPosters[i].quote === poster.quote) {
+        console.log("This already exists, but the user doesn't know it...");
+        return;
+      }
+    }
+    savedPosters.push(poster);
+  }
+}
